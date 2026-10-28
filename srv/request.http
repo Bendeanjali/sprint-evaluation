@@ -1,0 +1,709 @@
+###
+POST http://localhost:4004/odata/v4/project/Projects
+Content-Type: application/json
+
+{
+  "projectCode": "PRJ001",
+  "projectName": "PSA Project",
+  "startDate": "2026-10-20",
+  "endDate": "2026-10-10"
+}
+// Timesheet testing
+
+###
+
+POST http://localhost:4004/odata/v4/project/Timesheets
+Content-Type: application/json
+
+{
+  "ID": "8d6f8d9a-1234-5678-9012-abcdef123450",
+  "status": "Draft",
+  "employee_ID":"55555555-5555-5555-5555-555555555555"
+}
+###
+POST http://localhost:4004/odata/v4/employee/submitTimesheet
+Content-Type: application/json
+
+{
+  "timesheetID": "8d6f8d9a-1234-5678-9012-abcdef123456"
+}
+###
+http://localhost:4004/odata/v4/employee/Timesheets
+
+###
+POST http://localhost:4004/odata/v4/project/Timesheets
+Content-Type: application/json
+
+{
+  "ID": "123e4567-e89b-12d3-a456-426614174000",
+  "status": "Draft"
+}
+###
+POST http://localhost:4004/odata/v4/employee/submitTimesheet
+Content-Type: application/json
+
+{
+  "timesheetID": "123e4567-e89b-12d3-a456-426614174000"
+}
+
+
+###
+POST http://localhost:4004/odata/v4/project/approveTimesheet
+Content-Type: application/json
+
+{
+  "timesheetID": "123e4567-e89b-12d3-a456-426614174000"
+}
+###
+http://localhost:4004/odata/v4/project/Timesheets
+
+###
+POST http://localhost:4004/odata/v4/project/rejectTimesheet
+Content-Type: application/json
+
+{
+  "timesheetID": "8d6f8d9a-1234-5678-9012-abcdef123456",
+  "reason": "Incorrect hours entered"
+}
+###
+GET http://localhost:4004/odata/v4/project/Timesheets
+
+###
+http://localhost:4004/odata/v4/project/Projects?$expand=budget
+
+###
+GET http://localhost:4004/odata/v4/project/Milestones?$expand=tasks
+###
+GET http://localhost:4004/odata/v4/employee/TimesheetEntries
+###
+POST http://localhost:4004/odata/v4/employee/Timesheets('<TIMESHEET_ID>')/entries
+Content-Type: application/json
+
+{
+  "workDate": "2026-10-18",
+  "hours": 8,
+  "isBillable": true,
+  "notes": "Development work"
+}
+
+
+//72f67d45-0e86-49a7-bc86-dcfbb10dfeb4
+###
+POST http://localhost:4004/odata/v4/employee/TimesheetEntries
+Content-Type: application/json
+
+{
+  "workDate": "2026-10-18",
+  "hours": 8,
+  "isBillable": true,
+  "notes": "Development work",
+  "timesheet_ID": "72f67d45-0e86-49a7-bc86-dcfbb10dfeb4"
+}
+
+###
+GET http://localhost:4004/odata/v4/employee/Timesheets
+
+###
+POST http://localhost:4004/odata/v4/employee/TimesheetEntries
+Content-Type: application/json
+
+{
+  "workDate": "2026-10-18",
+  "hours": 8,
+  "isBillable": true,
+  "notes": "Development work",
+  "timesheet_ID": "123e4567-e89b-12d3-a456-426614174000"
+}
+
+###
+GET http://localhost:4004/odata/v4/employee/Timesheets('123e4567-e89b-12d3-a456-426614174000')
+
+###
+GET http://localhost:4004/odata/v4/employee/TimesheetEntries
+###
+GET http://localhost:4004/odata/v4/employee/TimesheetEntries?$expand=timesheet
+
+//33333333-3333-3333-3333-333333333333
+###
+POST http://localhost:4004/odata/v4/employee/TimesheetEntries
+Content-Type: application/json
+
+{
+  "workDate": "2026-10-18",
+  "hours": 8,
+  "isBillable": true,
+  "notes": "Development work",
+  "timesheet_ID": "123e4567-e89b-12d3-a456-426614174000",
+  "task_ID": "33333333-3333-3333-3333-333333333333"
+}
+###
+GET http://localhost:4004/odata/v4/employee/TimesheetEntries(4c026359-976c-4b7b-8de4-96a84d77bb76)?$expand=timesheet,task
+###
+POST http://localhost:4004/odata/v4/employee/TimesheetEntries
+Content-Type: application/json
+
+{
+  "timesheet_ID": "123e4567-e89b-12d3-a456-426614174000",
+  "task_ID": "33333333-3333-3333-3333-333333333333",
+  "workDate": "2026-10-13",
+  "hours": "8.00",
+  "isBillable": true,
+  "notes": "Backend API development"
+}
+###
+POST http://localhost:4004/odata/v4/employee/TimesheetEntries
+Content-Type: application/json
+
+{
+  "timesheet_ID": "123e4567-e89b-12d3-a456-426614174000",
+  "task_ID": "33333333-3333-3333-3333-333333333333",
+  "workDate": "2026-10-15",
+  "hours": "2.00",
+  "isBillable": false,
+  "notes": "Internal team meeting"
+}
+###
+POST http://localhost:4004/odata/v4/employee/TimesheetEntries
+Content-Type: application/json
+
+{
+  "workDate": "2026-10-18",
+  "hours": 30,
+  "task_ID": "33333333-3333-3333-3333-333333333333"
+}
+//123e4567-e89b-12d3-a456-426614174000
+###
+POST /odata/v4/project/Timesheets('123e4567-e89b-12d3-a456-426614174000
+')/rejectTimesheet
+
+
+###
+POST /odata/v4/project/Timesheets('123e4567-e89b-12d3-a456-426614174000
+')/rejectTimesheet()
+###
+POST http://localhost:4004/odata/v4/employee/TimesheetEntries
+Content-Type: application/json
+
+{
+  "timesheet_ID": "123e4567-e89b-12d3-a456-426614174000",
+  "task_ID": "33333333-3333-3333-3333-333333333333",
+  "workDate": "2026-10-18",
+  "hours": 8,
+  "isBillable": true,
+  "notes": "Development work"
+}
+
+###
+http://localhost:4004/odata/v4/employee/TimesheetEntries
+
+###
+GET http://localhost:4004/odata/v4/employee/Timesheets
+
+###
+POST http://localhost:4004/odata/v4/employee/Timesheets('550e8400-e29b-41d4-a716-446655440001')/submitTimesheet
+
+
+###
+GET http://localhost:4004/odata/v4/employee/Timesheets
+
+###
+POST http://localhost:4004/odata/v4/employee/Timesheets('550e8400-e29b-41d4-a716-446655440001')/submitTimesheet
+
+11111111-1111-1111-1111-111111111111
+###
+POST http://localhost:4004/odata/v4/project/Milestones
+Content-Type: application/json
+
+{
+  "milestoneName": "Requirements & Solution Design",
+ // "description": "Gather requirements and finalize solution architecture",
+  "startDate": "2026-10-01",
+  "endDate": "2026-10-31",
+  "completionPercent": 100,
+  "status": "Completed",
+  "priority": "High",
+  "project_ID": "11111111-1111-1111-1111-111111111111"
+}
+###
+POST http://localhost:4004/odata/v4/project/Tasks
+Content-Type: application/json
+
+{
+  "taskName": "Gather Business Requirements",
+  "startDate": "2026-10-01",
+  "endDate": "2026-10-05",
+  "estimatedHours": 40,
+  "actualHours": 0,
+  "priority": "High",
+  "status": "To Do",
+  "milestone_ID": "245458dc-a987-43f0-9e1d-5e8fe5661663"
+}
+###
+POST http://localhost:4004/odata/v4/project/TimesheetEntries
+Content-Type: application/json
+
+{
+  "workDate": "2026-10-18",
+  "hours": 8,
+  "isBillable": true,
+  "notes": "Requirement gathering",
+  "task_ID": "e15d5bf4-8c0d-498d-bf46-bd46490aebb5",
+  "timesheet_ID": "7a8b9c10-1111-2222-3333-444444444444"
+}
+
+
+###
+
+POST http://localhost:4004/odata/v4/employee/Timesheets(ID=7a8b9c10-1111-2222-3333-444444444444)/submitTimesheet
+
+###
+POST http://localhost:4004/odata/v4/Project/Budgets
+Content-Type: application/json
+
+{
+   "project_ID": "11111111-1111-1111-1111-111111111111",
+  "budgetAmt": 100000,
+  "consumedAmt": 25000,
+  "remainingAmt": 75000,
+  "billingRateHr": 1200,
+  "currencyCode": "INR",
+  "status": "Within Budget"
+  
+}
+
+###
+POST http://localhost:4004/odata/v4/project/Milestones
+Content-Type: application/json
+
+{
+  "project_ID": "11111111-1111-1111-1111-111111111111",
+  "milestoneName": "Design Phase",
+  //"description": "Solution Design",
+  "startDate": "2026-10-01",
+  "endDate": "2026-10-15",
+  "completionPercent": 50,
+  "status": "In Progress",
+  "priority": "High"
+}
+###
+POST http://localhost:4004/odata/v4/project/Milestones
+Content-Type: application/json
+
+{
+  "project_ID": "11111111-1111-1111-1111-111111111111",
+  "milestoneName": "Development",
+ // "description": "CAP and Fiori Development",
+  "startDate": "2026-10-16",
+  "endDate": "2026-11-15",
+  "completionPercent": 20,
+  "status": "In Progress",
+  "priority": "Critical"
+}
+###
+POST http://localhost:4004/odata/v4/project/Invoices
+Content-Type: application/json
+
+{
+  "project_ID": "11111111-1111-1111-1111-111111111111",
+  "invoiceDate": "2026-10-20",
+  "dueDate": "2026-11-20",
+  "billableHours": 40,
+  "totalAmt": 48000,
+  "taxAmt": 8640,
+  "currencyCode": "INR",
+  "status": "Draft"
+}
+###
+GET  http://localhost:4004/odata/v4/project/Budgets?$expand=project
+
+###
+GET http://localhost:4004/odata/v4/manager-dashboard/ProjectOverview('11111111-1111-1111-1111-111111111111')
+###
+POST http://localhost:4004/odata/v4/billing/generateInvoice
+Content-Type: application/json
+
+{
+  "projectID": "11111111-1111-1111-1111-111111111111",
+  "periodFrom": "2026-10-01",
+  "periodTo": "2026-10-31"
+}
+###
+POST http://localhost:4004/odata/v4/billing/generateInvoice
+Content-Type: application/json
+
+{
+  "invoiceNumber": "INV-2026-001",
+  "project_ID": "55555555-5555-5555-5555-555555555555",
+  "invoiceDate": "2026-01-31",
+  "dueDate": "2026-02-15",
+  "billableHours": 160,
+  "totalAmt": 8000,
+  "taxAmt": 1440,
+  "currencyCode": "USD",
+  "status": "Paid"
+}
+###
+GET http://localhost:4004/odata/v4/admin/Clients
+
+###
+POST http://localhost:4004/odata/v4/admin/Clients
+Content-Type: application/json
+
+{
+  "clientName": "Microsoft",
+  "contactPerson": "Satya Nadella",
+  "email": "satya@microsoft.com",
+  "phoneNo": "+91-9876543210",
+  "address": "Bangalore",
+  "country": "India",
+  "industry": "Technology",
+  "status": "Active"
+}
+###
+POST http://localhost:4004/odata/v4/admin/Departments
+Content-Type: application/json
+
+{
+  "departmentName": "Engineering",
+  "description": "Software Development Team",
+  "status": "Active"
+}
+###
+POST http://localhost:4004/odata/v4/admin/Employees
+Content-Type: application/json
+
+{
+  "firstName": "Sudheer",
+  "lastName": "Reddy",
+  "email": "sudheer@company.com",
+  "phoneNo": "9876543211",
+  "jobTitle": "Project Manager",
+  "role": "Manager",
+  "department_ID": "171081a0-5648-4e71-8125-c526adffbc5b",
+  "joinDate": "2026-01-01",
+  "hourlyRate": 1200,
+  "status": "Active"
+}
+
+empid-243eea86-3944-4428-bf4b-d4a851d55ba1
+mgid-281981b6-5648-4e71-8125-c526adffbc5b
+client-35053308-806f-4f4c-91ba-103ea78ee3ff
+project-71fed536-43fb-40b9-97e3-736c2ab82efa
+milestone-a327694c-d9ba-4d5b-9665-a6b49e06b648
+task-7cdf1e84-4450-41de-88a2-109d4c8c6997
+invoices-1ccde557-709d-41a4-a968-91f14a46e300
+timesheet-fb74bc1c-3ae2-41c3-b7e9-174260f25c39
+timesheetentry-ad6ecf1c-e45b-47f4-92d8-b33eb8e56c8e
+###
+POST http://localhost:4004/odata/v4/admin/Employees
+Content-Type: application/json
+
+{
+  "firstName": "Anjali",
+  "lastName": "B",
+  "email": "anjali@company.com",
+  "phoneNo": "9876543212",
+  "jobTitle": "Software Engineer",
+  "role": "Employee",
+  "department_ID": "171081a0-5648-4e71-8125-c526adffbc5b",
+  "reportingManager_ID": "281981b6-5648-4e71-8125-c526adffbc5b",
+  "joinDate": "2026-02-01",
+  "hourlyRate": 800,
+  "status": "Active"
+}
+###
+GET http://localhost:4004/odata/v4/admin/Projects
+###
+POST http://localhost:4004/odata/v4/admin/Projects
+Content-Type: application/json
+
+{
+  "client_ID": "35053308-806f-4f4c-91ba-103ea78ee3ff",
+  "manager_ID": "281981b6-5648-4e71-8125-c526adffbc5b",
+  "projectCode": "PRJ1001",
+  "projectName": "PSA Tracker",
+  "description": "Project Scheduling and Analytics",
+  "billingType": "TimeAndMaterial",
+  "startDate": "2026-01-01",
+  "endDate": "2026-12-31",
+  "status": "InProgress",
+  "priority": "High",
+  "plannedHours": 5000,
+  "consumedHours": 1200
+}
+###
+POST http://localhost:4004/odata/v4/admin/Budgets
+Content-Type: application/json
+
+{
+  "project_ID": "71fed536-43fb-40b9-97e3-736c2ab82efa",
+  "budgetAmt": 5000000,
+  "consumedAmt": 1200000,
+  "remainingAmt": 3800000,
+  "billingRateHr": 120,
+  "currencyCode": "INR",
+  "status": "OnTrack"
+}
+###
+POST http://localhost:4004/odata/v4/project/Milestones
+Content-Type: application/json
+
+{
+  "project_ID": "71fed536-43fb-40b9-97e3-736c2ab82efa",
+  "milestoneName": "Design Phase",
+  "startDate": "2026-01-10",
+  "endDate": "2026-02-25",
+  "completionPercent": 60,
+  "priority": "High",
+  "status": "InProgress"
+}
+###
+POST http://localhost:4004/odata/v4/project/Tasks
+Content-Type: application/json
+
+{
+  "milestone_ID": "a327694c-d9ba-4d5b-9665-a6b49e06b648",
+  "taskName": "Create CDS Models",
+  "description": "Develop PSA database model",
+  "startDate": "2026-01-15",
+  "endDate": "2026-01-30",
+  "priority": "High",
+  "status": "InProgress",
+  "estimatedHours": 40,
+  "actualHours": 12,
+  "assignedTo_ID": "243eea86-3944-4428-bf4b-d4a851d55ba1"
+}
+###
+GET http://localhost:4004/odata/v4/project/Invoices
+###
+POST http://localhost:4004/odata/v4/project/Invoices
+Content-Type: application/json
+
+{
+  "invoiceNumber": "INV-1011",
+  "project_ID": "71fe6536-43fb-40b9-97e3-736c2ab82efb",
+  "invoiceDate": "2026-04-09",
+  "dueDate": "2026-10-16",
+  "billableHours": 160,
+  "totalAmt": 192000,
+  "taxAmt": 34560,
+  "currencyCode": "INR",
+  "status": "Draft"
+}
+###
+POST http://localhost:4004/odata/v4/project/Invoices
+Content-Type: application/json
+
+{
+  "invoiceNumber": "INV-1012",
+  "project_ID": "71fe6536-43fb-40b9-97e3-736c2ab82efb",
+  "invoiceDate": "2026-03-01",
+  "dueDate": "2026-10-19",
+  "billableHours": 160,
+  "totalAmt": 192000,
+  "taxAmt": 34560,
+  "currencyCode": "INR",
+  "status": "Draft"
+}
+###
+POST http://localhost:4004/odata/v4/project/Timesheets
+Content-Type: application/json
+
+{
+  "employee_ID": "243eea86-3944-4428-bf4b-d4a851d55ba1",
+  "approvedBy_ID": "281981b6-5648-4e71-8125-c526adffbc5b",
+  "invoice_ID": "2430317d-bf30-43df-8a1c-bae93fba6db6",
+  "weekStartDate": "2026-03-02",
+  "weekEndDate": "2026-03-08",
+  "totalBillableHours": 40,
+  "submittedDate": "2026-03-09",
+  "approvedDate": "2026-03-10",
+  "rejectionReason": "",
+  "status": "Approved"
+}
+###
+POST http://localhost:4004/odata/v4/project/TimesheetEntries
+Content-Type: application/json
+
+{
+  "timesheet_ID": "fb74bc1c-3ae2-41c3-b7e9-174260f25c39",
+  "task_ID": "7cdf1e84-4450-41de-88a2-109d4c8c6997",
+  "workDate": "2026-03-03",
+  "hours": 8,
+  "isBillable": true,
+  "notes": "Worked on CAP entities and annotations"
+}
+###
+POST http://localhost:4004/odata/v4/Employee/timeStatuses
+Content-Type: application/json
+
+{
+  "code": "Submitted",
+  "text": "Submitted"
+}
+
+
+###
+POST http://localhost:4004/odata/v4/admin/Clients
+Content-Type: application/json
+
+{
+  "clientName": "Google",
+  "contactPerson": "vamshi",
+  "email": "vamshi@google.com",
+  "phoneNo": "+91-98735710",
+  "address": "Bangalore",
+  "country": "India",
+  "industry": "Technology",
+  "status": "Active"
+}
+
+947df96b-cdfc-454d-b6fb-19b6afb19eba
+
+
+  {
+    "ID": "11111111-1111-1111-1111-111111111111",
+    "projectCode": "PRJ001",
+    "projectName": "SAP S/4HANA Migration",
+    "description": "Migration of legacy ERP system to SAP S/4HANA.",
+    "billingType": "FixedPrice",
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "Active",
+    "priority": "High",
+    "plannedHours": 5000.00,
+    "consumedHours": 2300.50,
+    "client_ID": "c1111111-1111-1111-1111-111111111111",
+    "manager_ID": "e1111111-1111-1111-1111-111111111111"
+  },
+  {
+    "ID": "22222222-2222-2222-2222-222222222222",
+    "projectCode": "PRJ002",
+    "projectName": "Fiori Dashboard Development",
+    "description": "Development of analytics dashboard using SAP Fiori Elements.",
+    "billingType": "TimeAndMaterial",
+    "startDate": "2026-02-15",
+    "endDate": "2026-08-31",
+    "status": "Active",
+    "priority": "Medium",
+    "plannedHours": 2500.00,
+    "consumedHours": 1250.75,
+    "client_ID": "c2222222-2222-2222-2222-222222222222",
+    "manager_ID": "e2222222-2222-2222-2222-222222222222"
+  },
+
+###
+POST http://localhost:4004/odata/v4/project/Projects
+Content-Type: application/json
+
+  {
+    "ID":"33333333-3333-3333-3333-333333333333",
+    "projectCode":"PRJ003",
+    "projectName":"Employee Portal",
+    "description":"Corporate employee self service portal.",
+    "billingType":"FixedPrice",
+    "startDate":"2026-03-01",
+    "endDate":"2026-09-30",
+    "status":"Completed",
+    "priority":"Low",
+    "plannedHours":1800.00,
+    "consumedHours":1765.20,
+    "client_ID":"3412a0be-853b-4af2-887e-a736ea00dc9a",
+    "manager_ID":"e1111111-1111-1111-1111-111111111111"
+  },
+
+###
+POST http://localhost:4004/odata/v4/project/Projects
+Content-Type: application/json
+
+{
+  //"ID": "44444444-4444-4444-4444-444444444444",
+  "projectCode": "PRJ00110",
+  "projectName": "AI Resource Forecasting",
+  "description": "d forecasting application.",
+  "billingType": "TimeAndMaterial",
+  "startDate": "2026-10-01",
+  "endDate": "2027-12-31",
+  "status": "Planning",
+  "priority": "Critical",
+  "plannedHours": 4000.00,
+  "consumedHours": 120.00,
+  "client_ID": "3412a0be-853b-4af2-887e-a736ea00dc9a",
+  "manager_ID": "e3333333-3333-3333-3333-333333333333"
+}
+
+
+b194026e-6192-4179-8433-98cef280d6a8
+###
+POST http://localhost:4004/odata/v4/project/Invoices
+Content-Type: application/json
+
+{
+  "project_ID": "b194026e-6192-4179-8433-98cef280d6a8",
+  "invoiceDate": "2026-10-20",
+  "dueDate": "2026-11-20",
+  "billableHours": 40,
+  "totalAmt": 48000,
+  "taxAmt": 8640,
+  "currencyCode": "INR",
+  "status": "Draft"
+}
+
+55555555-5555-5555-5555-555555555555
+###
+POST http://localhost:4004/odata/v4/admin/Clients
+Content-Type: application/json
+
+{
+  "clientName": "Accenture",
+  "contactPerson": "varun",
+  "email": "varun@acce.com",
+  "phoneNo": "+91-98735710",
+  "address": "Hyd",
+  "country": "India",
+  "industry": "Technology",
+  "status": "Active"
+}
+
+3412a0be-853b-4af2-887e-a736ea00dc9a
+
+
+
+###
+POST http://localhost:4004/odata/v4/project/Projects
+Content-Type: application/json
+
+{
+  //"ID": "44444444-4444-4444-4444-444444444444",
+  "projectCode": "PRJ00110",
+  "projectName": "AI Resource Forecasting",
+  "description": "d forecasting application.",
+  "billingType": "TimeAndMaterial",
+  "startDate": "2026-10-01",
+  "endDate": "2027-12-31",
+  "status": "Planning",
+  "priority": "Critical",
+  "plannedHours": 4000.00,
+  "consumedHours": 120.00,
+  "client_ID": "3412a0be-853b-4af2-887e-a736ea00dc9a",
+  "manager_ID": "e3333333-3333-3333-3333-333333333333"
+}
+111278a0-b76b-48a3-b1cb-53e89432abb8
+
+###
+POST http://localhost:4004/odata/v4/project/Invoices
+Content-Type: application/json
+
+{
+  "project_ID": "111278a0-b76b-48a3-b1cb-53e89432abb8",
+  "invoiceNumber":"INV-101156",
+  "invoiceDate": "2026-10-20",
+  "dueDate": "2026-11-20",
+  "billableHours": 40,
+  "totalAmt": 48000,
+  "taxAmt": 8640,
+  "currencyCode": "INR",
+  "status": "Draft"
+}
+
+11111111-1111-1111-1111-111111111111

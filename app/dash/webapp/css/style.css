@@ -1,0 +1,117 @@
+/* Enter your custom styles here */
+/* Page */
+
+.sapMPage {
+    background: #f3f5f7;
+}
+
+/* Hero */
+
+.managerHero {
+    background: linear-gradient(
+        135deg,
+        #0A6ED1,
+        #1f3c88
+    );
+
+    padding: 2rem;
+    border-radius: 0 0 16px 16px;
+}
+
+/* Title */
+
+.managerHeroTitle {
+    color: white !important;
+    font-size: 2rem !important;
+    font-weight: bold !important;
+}
+
+/* Subtitle */
+
+.managerHeroSubtitle {
+    color: white !important;
+    opacity: 0.9;
+}
+
+/* KPI Cards */
+
+.managerKpiTile {
+    width: 250px !important;
+    height: 150px !important;
+
+    border-radius: 16px !important;
+
+    box-shadow:
+        0 4px 14px rgba(
+            0,
+            0,
+            0,
+            0.12
+        ) !important;
+
+    background: white !important;
+}
+
+/* Projects Panel */
+
+.sapMPanel {
+    border-radius: 16px;
+}
+
+/* Header Bar */
+
+#headerBar {
+    background: white;
+    border-bottom:
+        1px solid #e5e7eb;
+}
+
+
+.kpiTile {
+    width: 250px !important;
+    min-width: 250px !important;
+    max-width: 250px !important;
+
+    height: 160px !important;
+    min-height: 160px !important;
+    max-height: 160px !important;
+
+    border-radius: 16px !important;
+    overflow: hidden;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.10);
+}
+
+#kpiContainer {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+
+    gap: 20px !important;
+    padding: 20px !important;
+}
+
+
+
+
+
+
+
+#kpiContainer {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+
+    gap: 20px !important;
+    padding: 20px !important;
+}
+
+.kpiTile .sapMNcValue {
+    font-size: 2rem !important;
+    font-weight: bold !important;
+}
+
+.kpiTile .sapMGTHdrTxt {
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+}

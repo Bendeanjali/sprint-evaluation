@@ -1,0 +1,22 @@
+/* Approve Button */
+.approveBtn .sapMBtnInner {
+    background-color: #107e3e !important;
+    border-color: #107e3e !important;
+    color: white !important;
+}
+
+/* Reject Button */
+.rejectBtn .sapMBtnInner {
+    background-color: #bb0000 !important;
+    border-color: #bb0000 !important;
+    color: white !important;
+}
+
+/* Hover */
+.approveBtn .sapMBtnInner:hover {
+    background-color: #0b5d30 !important;
+}
+
+.rejectBtn .sapMBtnInner:hover {
+    background-color: #8f0000 !important;
+}

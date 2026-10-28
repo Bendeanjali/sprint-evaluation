@@ -1,0 +1,66 @@
+{
+  "name": "sampleproject",
+  "version": "1.0.0",
+  "description": "Welcome to your new CAP project.",
+  "main": "index.js",
+  "scripts": {
+    "start": "cds-serve",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-projectapp": "cds watch --open psa.projectapp/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-timesheetapp": "cds watch --open psa.timesheet.timesheetapp/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-timesheetsapp": "cds watch --open psa.timesheets.timesheetsapp/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-managerapp": "cds watch --open psa.app.managerapp/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-dash": "cds watch --open psa.dash.dash/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-approve": "cds watch --open psa.approve.approve/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-employee_app": "cds watch --open psa.emp.employeeapp/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-clientapp": "cds watch --open psa.cl.clientapp/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-billapp": "cds watch --open psa.bill.billapp/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-admin": "cds watch --open psa.admi.admin/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-department": "cds watch --open psa.dep.department/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-emp": "cds watch --open psa.emp.emp/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@cap-js/hana": "^3.1.2",
+    "@sap/cds": "^10.1.1",
+    "@sap/xsenv": "^6.2.2",
+    "@sap/xssec": "^4.15.0",
+    "pdfkit": "^0.20.2"
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "devDependencies": {
+    "@sap/cds-dk": "^10",
+    "cds-plugin-ui5": "^0.17.0"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "hana"
+      },
+      "auth": {
+        "kind": "xsuaa"
+      }
+    }
+  },
+  "sapux": [
+    "app/projectapp",
+    "app/timesheetapp",
+    "app/timesheetapp",
+    "app/timesheetapp",
+    "app/timesheetsapp",
+    "app/managerapp",
+    "app/approve",
+    "app/employee_app",
+    "app/clientapp",
+    "app/billapp",
+    "app/admin",
+    "app/department",
+    "app/emp",
+    "app/emp"
+  ]
+}

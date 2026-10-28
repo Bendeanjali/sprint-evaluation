@@ -1,0 +1,690 @@
+<mvc:View
+    id="projectDetailView"
+    controllerName="psa.dash.dash.controller.ProjectDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form">
+
+    <Page
+        id="pdProjectDetailPage"
+        title="Project Details"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+
+        <content>
+
+            <VBox
+                id="pdMainContainer"
+                class="sapUiMediumMargin">
+
+                <!-- KPI Cards -->
+
+                <HBox
+                            id="kpiContainers"
+                            justifyContent="Center"
+                            alignItems="Center"
+                            width="100%"
+                            class="sapUiMediumMargin">
+
+                   
+                       <GenericTile
+                            id="pdBudgetTile"
+                            class="sapUiSmallMarginEnd"
+                            header="Budget"
+                            frameType="OneByOne">
+
+
+                        <TileContent
+                            id="pdBudgetTileContent">
+
+                            <NumericContent
+                                id="pdBudgetNumericContent"
+                                value="{budgetAmount}" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                   <GenericTile
+                        id="pdConsumedTile"
+                        class="sapUiSmallMarginEnd"
+                        header="Consumed"
+                        frameType="OneByOne">
+
+                        <TileContent
+                            id="pdConsumedTileContent">
+
+                            <NumericContent
+                                id="pdConsumedNumericContent"
+                                value="{budgetConsumedAmount}" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                    <GenericTile
+                    id="pdRemainingTile"
+                    class="sapUiSmallMarginEnd"
+                    header="Remaining"
+                    frameType="OneByOne">
+
+                        <TileContent
+                            id="pdRemainingTileContent">
+
+                            <NumericContent
+                                id="pdRemainingNumericContent"
+                                value="{remainingAmount}" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                    <GenericTile
+                    id="pdBillingRateTile"
+                    class="sapUiSmallMarginEnd"
+                    header="Billing Rate"
+                    frameType="OneByOne">
+
+
+                        <TileContent
+                            id="pdBillingRateTileContent">
+
+                            <NumericContent
+                                id="pdBillingRateNumericContent"
+                                value="{billingRatePerHour}" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                    <GenericTile
+                    id="pdHoursTile"
+                    class="sapUiSmallMarginEnd"
+                    header="Hours"
+                    frameType="OneByOne">
+
+                        <TileContent
+                            id="pdHoursTileContent">
+
+                            <NumericContent
+                                id="pdHoursNumericContent"
+                                value="{consumedHours}" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                </HBox>
+    <Toolbar id="projectActionToolbar">
+
+    <Title
+        id="projectTitle"
+        text="{projectName}" />
+
+    <ToolbarSpacer id="tb" />
+
+    <Button
+        id="btnActivate"
+        text="Activate"
+        type="Emphasized"
+        visible="false"
+        press="onActivateProject" />
+
+    <Button
+        id="btnPutOnHold"
+        text="Put On Hold"
+        visible="false"
+        press="onHoldProject" />
+
+    <Button
+        id="btnComplete"
+        text="Complete"
+        visible="false"
+        press="onCompleteProject" />
+
+    <Button
+        id="btnCancel"
+        text="Cancel Project"
+        type="Reject"
+        visible="false"
+        press="onCancelProject" />
+
+</Toolbar>
+                <!-- Tabs -->
+
+                <IconTabBar
+                    id="pdProjectIconTabBar">
+
+                    <items>
+
+                        <!-- Budget -->
+
+                      <!-- <IconTabFilter
+                            id="pdBudgetTab"
+                            text="Budget">
+
+                            <VBox
+                                id="pdBudgetSectionContainer"
+                                class="sapUiMediumMargin">
+
+                                <form:SimpleForm
+                                    id="pdBudgetSimpleForm"
+                                    editable="false"
+                                    layout="ResponsiveGridLayout">
+
+                                    <Label
+                                        id="pdLblProjectCode"
+                                        text="Project Code"/>
+
+                                    <Text
+                                        id="pdTxtProjectCode"
+                                        text="{projectCode}"/>
+
+                                    <Label
+                                        id="pdLblProjectName"
+                                        text="Project Name"/>
+
+                                    <Text
+                                        id="pdTxtProjectName"
+                                        text="{projectName}"/>
+
+                                    <Label
+                                        id="pdLblBillingType"
+                                        text="Billing Type"/>
+
+                                    <Text
+                                        id="pdTxtBillingType"
+                                        text="{billingType}"/>
+
+                                    <Label
+                                        id="pdLblBudgetAmount"
+                                        text="Budget Amount"/>
+
+                                    <Text
+                                        id="pdTxtBudgetAmount"
+                                        text="{budgetAmount}"/>
+
+                                    <Label
+                                        id="pdLblConsumedAmount"
+                                        text="Consumed Amount"/>
+
+                                    <Text
+                                        id="pdTxtConsumedAmount"
+                                        text="{budgetConsumedAmount}"/>
+
+                                    <Label
+                                        id="pdLblRemainingAmount"
+                                        text="Remaining Amount"/>
+
+                                    <Text
+                                        id="pdTxtRemainingAmount"
+                                        text="{remainingAmount}"/>
+
+                                    <Label
+                                        id="pdLblBillingRate"
+                                        text="Billing Rate"/>
+
+                                    <Text
+                                        id="pdTxtBillingRate"
+                                        text="{billingRatePerHour}"/>
+
+                                    <Label
+                                        id="pdLblBudgetStatus"
+                                        text="Status"/>
+
+                                    <Label id="pstatuses"
+                                    text="Project Status"/>
+
+
+                                    <Text id="tstatus" 
+                                    text="{projectStatus}" 
+                                    />
+
+                                    <ObjectStatus
+                                        id="pdObjBudgetStatus"
+                                        text="{budgetStatus}"/>
+
+                                </form:SimpleForm>
+
+                            </VBox>
+
+                        </IconTabFilter>
+
+                       -->
+                       <IconTabFilter
+    id="pdBudgetTab"
+    text="Budget">
+
+    <VBox
+        id="pdBudgetVBox"
+        class="sapUiMediumMargin">
+
+        <Table
+            id="pdBudgetTable"
+            inset="false">
+
+            <columns>
+
+                <Column id="pdBudgetFieldColumn">
+                    <Text
+                        id="pdBudgetFieldHeader"
+                        text="Field" />
+                </Column>
+
+                <Column id="pdBudgetValueColumn">
+                    <Text
+                        id="pdBudgetValueHeader"
+                        text="Value" />
+                </Column>
+
+            </columns>
+
+            <items>
+
+                <ColumnListItem id="pdProjectCodeRow">
+                    <cells>
+                        <Text
+                            id="pdProjectCodeLabel"
+                            text="Project Code" />
+                        <Text
+                            id="pdProjectCodeValue"
+                            text="{projectCode}" />
+                    </cells>
+                </ColumnListItem>
+
+                <ColumnListItem id="pdProjectNameRow">
+                    <cells>
+                        <Text
+                            id="pdProjectNameLabel"
+                            text="Project Name" />
+                        <Text
+                            id="pdProjectNameValue"
+                            text="{projectName}" />
+                    </cells>
+                </ColumnListItem>
+
+                <ColumnListItem id="pdBillingTypeRow">
+                    <cells>
+                        <Text
+                            id="pdBillingTypeLabel"
+                            text="Billing Type" />
+                        <Text
+                            id="pdBillingTypeValue"
+                            text="{billingType}" />
+                    </cells>
+                </ColumnListItem>
+
+                <ColumnListItem id="pdBudgetAmountRow">
+                    <cells>
+                        <Text
+                            id="pdBudgetAmountLabel"
+                            text="Budget Amount" />
+                        <Text
+                            id="pdBudgetAmountValue"
+                            text="{budgetAmount}" />
+                    </cells>
+                </ColumnListItem>
+
+                <ColumnListItem id="pdConsumedAmountRow">
+                    <cells>
+                        <Text
+                            id="pdConsumedAmountLabel"
+                            text="Consumed Amount" />
+                        <Text
+                            id="pdConsumedAmountValue"
+                            text="{budgetConsumedAmount}" />
+                    </cells>
+                </ColumnListItem>
+
+                <ColumnListItem id="pdRemainingAmountRow">
+                    <cells>
+                        <Text
+                            id="pdRemainingAmountLabel"
+                            text="Remaining Amount" />
+                        <Text
+                            id="pdRemainingAmountValue"
+                            text="{remainingAmount}" />
+                    </cells>
+                </ColumnListItem>
+
+                <ColumnListItem id="pdBillingRateRow">
+                    <cells>
+                        <Text
+                            id="pdBillingRateLabel"
+                            text="Billing Rate" />
+                        <Text
+                            id="pdBillingRateValue"
+                            text="{billingRatePerHour}" />
+                    </cells>
+                </ColumnListItem>
+
+                <ColumnListItem id="pdProjectStatusRow">
+                    <cells>
+                        <Text
+                            id="pdProjectStatusLabel"
+                            text="Project Status" />
+                        <ObjectStatus
+                            id="pdProjectStatusValue"
+                            text="{projectStatus}" />
+                    </cells>
+                </ColumnListItem>
+
+                <ColumnListItem id="pdBudgetStatusRow">
+                    <cells>
+                        <Text
+                            id="pdBudgetStatusLabel"
+                            text="Budget Status" />
+                            
+                        <ObjectStatus
+                            id="pdBudgetStatusValue"
+                            text="{budgetStatus}"
+                            state="{
+                        path:'budgetStatus',
+                        formatter:'.formatBudgetStatusState'
+                    }" />
+                    </cells>
+                </ColumnListItem>
+
+            </items>
+
+        </Table>
+
+    </VBox>
+
+</IconTabFilter>
+
+                       <IconTabFilter
+                                id="pdMilestoneTab"
+                                text="Milestones">
+
+                                <VBox
+                                    id="pdMilestoneVBox"
+                                    class="sapUiMediumMargin">
+
+                                    <Toolbar id="pdMilestoneToolbar">
+
+                                        <Title
+                                            id="pdMilestoneTitle"
+                                            text="Project Milestones"/>
+
+                                        <ToolbarSpacer id="pdMilestoneSpacer"/>
+
+                                        <Button
+                                            id="btnAddMilestone"
+                                            text="Add Milestone"
+                                            icon="sap-icon://add"
+                                            type="Emphasized"
+                                            press=".onAddMilestone"/>
+
+                                    </Toolbar>
+
+                                    <Table
+                                        id="pdMilestoneTable"
+                                        inset="false"
+                                        items="{/Milestones}">
+
+                                        <columns>
+
+                                            <Column id="colMilestoneName">
+                                                <Text
+                                                    id="txtMilestoneNameHeader"
+                                                    text="Milestone Name"/>
+                                            </Column>
+
+                                            <Column id="colStartDate">
+                                                <Text
+                                                    id="txtStartDateHeader"
+                                                    text="Start Date"/>
+                                            </Column>
+
+                                            <Column id="colEndDate">
+                                                <Text
+                                                    id="txtEndDateHeader"
+                                                    text="End Date"/>
+                                            </Column>
+
+                                            <Column id="colPriority">
+                                                <Text
+                                                    id="txtPriorityHeader"
+                                                    text="Priority"/>
+                                            </Column>
+
+                                            <Column id="colStatus">
+                                                <Text
+                                                    id="txtStatusHeader"
+                                                    text="Status"/>
+                                            </Column>
+
+                                            <Column id="colCompletion">
+                                                <Text
+                                                    id="txtCompletionHeader"
+                                                    text="Completion %"/>
+                                            </Column>
+
+                                        </columns>
+
+            <items>
+
+                <ColumnListItem id="milestoneRowTemplate">
+
+                    <cells>
+
+                        <Text
+                            id="txtMilestoneName"
+                            text="{milestoneName}"/>
+
+                        <Text
+                            id="txtStartDate"
+                            text="{startDate}"/>
+
+                        <Text
+                            id="txtEndDate"
+                            text="{endDate}"/>
+
+                        <Text
+                            id="txtPriority"
+                            text="{priority}"/>
+
+                        <ObjectStatus
+                            id="objStatus"
+                            text="{status}"
+                            state="{
+        path:'status',
+        formatter:'.formatMilestoneState'
+    }"/>
+
+                        <Text
+                            id="txtCompletion"
+                            text="{completionPercent}%"/>
+
+                    </cells>
+
+                </ColumnListItem>
+
+            </items>
+
+        </Table>
+
+    </VBox>
+
+</IconTabFilter>
+
+<IconTabFilter
+    id="pdTaskTab"
+    text="Tasks">
+
+    <VBox
+        id="pdTaskVBox"
+        class="sapUiMediumMargin">
+
+        <Toolbar id="pdTaskToolbar">
+
+            <Title
+                id="pdTaskTitle"
+                text="Project Tasks"/>
+
+            <ToolbarSpacer
+                id="pdTaskSpacer"/>
+
+            <Button
+                id="btnAddTask"
+                text="Add Task"
+                icon="sap-icon://add"
+                type="Emphasized"
+                press=".onAddTask"/>
+
+        </Toolbar>
+
+        <Table
+            id="pdTaskTable"
+            inset="false"
+            items="{/Tasks}">
+
+            <columns>
+
+                <Column id="colTaskName">
+                    <Text
+                        id="txtTaskNameHeader"
+                        text="Task Name"/>
+                </Column>
+
+                <Column id="colTaskMilestone">
+                    <Text
+                        id="txtTaskMilestoneHeader"
+                        text="Milestone"/>
+                </Column>
+
+                <Column id="colTaskStartDate">
+                    <Text
+                        id="txtTaskStartDateHeader"
+                        text="Start Date"/>
+                </Column>
+
+                <Column id="colTaskEndDate">
+                    <Text
+                        id="txtTaskEndDateHeader"
+                        text="End Date"/>
+                </Column>
+
+                <Column id="colTaskPriority">
+                    <Text
+                        id="txtTaskPriorityHeader"
+                        text="Priority"/>
+                </Column>
+
+                <Column id="colTaskStatus">
+                    <Text
+                        id="txtTaskStatusHeader"
+                        text="Status"/>
+                </Column>
+
+                <Column id="colAssignedEmployee">
+                    <Text
+                        id="txtAssignedEmployeeHeader"
+                        text="Assigned Employee"/>
+                </Column>
+
+                <Column id="colEstimatedHours">
+                    <Text
+                        id="txtEstimatedHoursHeader"
+                        text="Estimated Hrs"/>
+                </Column>
+
+                <Column id="colActualHours">
+                    <Text
+                        id="txtActualHoursHeader"
+                        text="Actual Hrs"/>
+                </Column>
+
+                <Column id="colBurnPercent">
+                    <Text
+                        id="txtBurnPercentHeader"
+                        text="Burn %"/>
+                </Column>
+
+            </columns>
+
+            <items>
+
+                <ColumnListItem
+                    id="taskRowTemplate">
+
+                    <cells>
+
+                        <Text
+                            id="txtTaskName"
+                            text="{taskName}"/>
+
+                        <Text
+                            id="txtTaskMilestone"
+                            text="{milestone/milestoneName}"/>
+
+                        <Text
+                            id="txtTaskStartDate"
+                            text="{startDate}"/>
+
+                        <Text
+                            id="txtTaskEndDate"
+                            text="{endDate}"/>
+
+                        <Text
+                            id="txtTaskPriority"
+                            text="{priority}"/>
+                        <Text
+                                id="txtAssignedEmployee"
+                                text="{
+                                    parts:[
+                                        'assignedTo/firstName',
+                                        'assignedTo/lastName'
+                                    ],
+                                    formatter: '.formatEmployeeName'
+                                }"/>
+                                    <ObjectStatus
+                            id="objTaskStatus"
+                            text="{status}"/>
+
+                        <Text
+                            id="txtEstimatedHours"
+                            text="{estimatedHours}"/>
+
+                        <Text
+                            id="txtActualHours"
+                            text="{actualHours}"/>
+
+                        <ObjectStatus
+                            id="objBurnPercent"
+                           text="{= ${estimatedHours} > 0
+ ? Math.round((${actualHours}/${estimatedHours}) * 100)
+ : 0 }"
+ />
+
+                    </cells>
+
+                </ColumnListItem>
+
+            </items>
+
+        </Table>
+
+    </VBox>
+
+</IconTabFilter>
+
+
+
+                        
+
+                        
+
+                    </items>
+
+                </IconTabBar>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

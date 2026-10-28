@@ -1,0 +1,48 @@
+{
+  "xsappname": "sampleproject",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Admin Access"
+    },
+    {
+      "name": "$XSAPPNAME.Manager",
+      "description": "Manager Access"
+    },
+    {
+      "name": "$XSAPPNAME.Employee",
+      "description": "Employee Access"
+    },
+    {
+      "name": "$XSAPPNAME.Finance",
+      "description": "Finance Access"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Admin",
+      "scope-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    },
+    {
+      "name": "Manager",
+      "scope-references": [
+        "$XSAPPNAME.Manager"
+      ]
+    },
+    {
+      "name": "Employee",
+      "scope-references": [
+        "$XSAPPNAME.Employee"
+      ]
+    },
+    {
+      "name": "Finance",
+      "scope-references": [
+        "$XSAPPNAME.Finance"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,428 @@
+
+<mvc:View
+    id="adminView"
+    controllerName="psa.admi.admin.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds">
+
+    <Page
+        id="adminPage"
+        showHeader="false"
+        enableScrolling="true">
+
+        <content>
+            <HBox
+                id="adminShell"
+                class="adminShell"
+                fitContainer="true">
+
+                <!-- Sidebar -->
+                <VBox
+                    id="sidebar"
+                    class="adminSidebar"
+                    width="230px">
+
+                    <Title
+                        id="brandTitle"
+                        text="PSA ADMIN"
+                        level="H2"
+                        class="brandTitle"/>
+
+                    <Text
+                        id="brandSubtitle"
+                        text="Management Console"
+                        class="brandSubtitle"/>
+
+                    <List
+                        id="sideMenu"
+                        mode="None"
+                        class="sideMenu">
+
+                        <StandardListItem
+                            id="navDashboard"
+                            title="Dashboard"
+                            icon="sap-icon://home"
+                            type="Active"
+                            press=".onDashboard"/>
+
+                        <StandardListItem
+                            id="navEmployees"
+                            title="Employees"
+                            icon="sap-icon://employee"
+                            type="Active"
+                            press=".onEmployees"/>
+
+                        <StandardListItem
+                            id="navManagers"
+                            title="Managers"
+                            icon="sap-icon://manager"
+                            type="Active"
+                            press=".onManagers"/>
+
+                        <StandardListItem
+                            id="navClients"
+                            title="Clients"
+                            icon="sap-icon://customer"
+                            type="Active"
+                            press=".onClients"/>
+
+                        <StandardListItem
+                            id="navDepartments"
+                            title="Departments"
+                            icon="sap-icon://building"
+                            type="Active"
+                            press=".onDepartments"/>
+                    </List>
+
+                    <ToolbarSpacer id="sidebarSpacer"/>
+
+                    <Text
+                        id="sidebarFooter"
+                        text="PSA • Admin Portal"
+                        class="sidebarFooter"/>
+                </VBox>
+
+                <!-- Main content -->
+                <VBox
+                    id="mainContent"
+                    class="mainContent"
+                    width="100%">
+
+                    <Toolbar id="topBar" class="topBar">
+                        <Button
+                            id="toggleSidebarButton"
+                            icon="sap-icon://menu2"
+                            type="Transparent"
+                            tooltip="Toggle sidebar"
+                            press=".onToggleSidebar"/>
+
+                        <Title
+                            id="pageTitle"
+                            text="{ui>/pageTitle}"
+                            level="H2"/>
+
+                        <ToolbarSpacer id="topBarSpacer"/>
+
+                        <ObjectStatus
+                            id="adminStatus"
+                            text="Administrator"
+                            state="Success"/>
+                    </Toolbar>
+
+                    <VBox id="pageBody" class="pageBody">
+
+                        <!-- Dashboard -->
+                        <VBox
+                            id="dashboardSection"
+                            visible="{= ${ui>/section} === 'Dashboard'}">
+
+                            <Title
+                                id="overviewTitle"
+                                text="Business Overview"
+                                level="H1"/>
+
+                            <Text
+                                id="overviewSubtitle"
+                                text="Monitor your workforce and clients"
+                                class="mutedText"/>
+
+                            <!-- KPI cards -->
+                            <HBox
+                                id="kpiContainer"
+                                wrap="Wrap"
+                                class="kpiContainer">
+
+                                <VBox id="employeeKpi" class="kpiCard">
+                                    <Text
+                                        id="employeeKpiLabel"
+                                        text="Total Employees"/>
+                                    <Title
+                                        id="employeeKpiValue"
+                                        text="{stats>/employees}"
+                                        level="H1"/>
+                                    <ObjectStatus
+                                        id="employeeKpiStatus"
+                                        text="Workforce"
+                                        state="Information"/>
+                                </VBox>
+
+                                <VBox id="managerKpi" class="kpiCard">
+                                    <Text
+                                        id="managerKpiLabel"
+                                        text="Managers"/>
+                                    <Title
+                                        id="managerKpiValue"
+                                        text="{stats>/managers}"
+                                        level="H1"/>
+                                    <ObjectStatus
+                                        id="managerKpiStatus"
+                                        text="Leadership"
+                                        state="Success"/>
+                                </VBox>
+
+                                <VBox id="clientKpi" class="kpiCard">
+                                    <Text
+                                        id="clientKpiLabel"
+                                        text="Clients"/>
+                                    <Title
+                                        id="clientKpiValue"
+                                        text="{stats>/clients}"
+                                        level="H1"/>
+                                    <ObjectStatus
+                                        id="clientKpiStatus"
+                                        text="Relationships"
+                                        state="Information"/>
+                                </VBox>
+
+                                <VBox id="departmentKpi" class="kpiCard">
+                                    <Text
+                                        id="departmentKpiLabel"
+                                        text="Departments"/>
+                                    <Title
+                                        id="departmentKpiValue"
+                                        text="{stats>/departments}"
+                                        level="H1"/>
+                                    <ObjectStatus
+                                        id="departmentKpiStatus"
+                                        text="Organization"
+                                        state="Warning"/>
+                                </VBox>
+                            </HBox>
+
+                            <!-- Charts -->
+                            <HBox
+                                id="chartRow"
+                                wrap="Wrap"
+                                class="chartRow">
+
+                                <VBox
+                                    id="statusChartCard"
+                                    class="chartCard"
+                                    width="48%">
+
+                                    <Title
+                                        id="statusChartTitle"
+                                        text="Employee Status"
+                                        level="H3"/>
+
+                                    <viz:VizFrame
+                                        id="statusChart"
+                                        height="300px"
+                                        width="100%"
+                                        vizType="donut"
+                                        uiConfig="{applicationSet:'fiori'}">
+
+                                        <viz:dataset>
+                                            <viz.data:FlattenedDataset
+                                                id="statusDataset"
+                                                data="{charts>/status}">
+
+                                                <viz.data:dimensions>
+                                                    <viz.data:DimensionDefinition
+                                                        id="statusDimension"
+                                                        name="Status"
+                                                        value="{charts>status}"/>
+                                                </viz.data:dimensions>
+
+                                                <viz.data:measures>
+                                                    <viz.data:MeasureDefinition
+                                                        id="statusMeasure"
+                                                        name="Employees"
+                                                        value="{charts>count}"/>
+                                                </viz.data:measures>
+                                            </viz.data:FlattenedDataset>
+                                        </viz:dataset>
+
+                                        <viz:feeds>
+                                            <viz.feeds:FeedItem
+                                                id="statusSizeFeed"
+                                                uid="size"
+                                                type="Measure"
+                                                values="Employees"/>
+
+                                            <viz.feeds:FeedItem
+                                                id="statusColorFeed"
+                                                uid="color"
+                                                type="Dimension"
+                                                values="Status"/>
+                                        </viz:feeds>
+                                    </viz:VizFrame>
+                                </VBox>
+
+                                <VBox
+                                    id="departmentChartCard"
+                                    class="chartCard"
+                                    width="48%">
+
+                                    <Title
+                                        id="departmentChartTitle"
+                                        text="Employees by Department"
+                                        level="H3"/>
+
+                                    <viz:VizFrame
+                                        id="departmentChart"
+                                        height="300px"
+                                        width="100%"
+                                        vizType="column"
+                                        uiConfig="{applicationSet:'fiori'}">
+
+                                        <viz:dataset>
+                                            <viz.data:FlattenedDataset
+                                                id="departmentDataset"
+                                                data="{charts>/departments}">
+
+                                                <viz.data:dimensions>
+                                                    <viz.data:DimensionDefinition
+                                                        id="departmentDimension"
+                                                        name="Department"
+                                                        value="{charts>department}"/>
+                                                </viz.data:dimensions>
+
+                                                <viz.data:measures>
+                                                    <viz.data:MeasureDefinition
+                                                        id="departmentMeasure"
+                                                        name="Employees"
+                                                        value="{charts>count}"/>
+                                                </viz.data:measures>
+                                            </viz.data:FlattenedDataset>
+                                        </viz:dataset>
+
+                                        <viz:feeds>
+                                            <viz.feeds:FeedItem
+                                                id="departmentValueFeed"
+                                                uid="valueAxis"
+                                                type="Measure"
+                                                values="Employees"/>
+
+                                            <viz.feeds:FeedItem
+                                                id="departmentCategoryFeed"
+                                                uid="categoryAxis"
+                                                type="Dimension"
+                                                values="Department"/>
+                                        </viz:feeds>
+                                    </viz:VizFrame>
+                                </VBox>
+                            </HBox>
+
+                            <!-- Recent employees -->
+                            <Title
+                                id="recentEmployeesTitle"
+                                text="Recent Employees"
+                                level="H2"/>
+
+                            <Table
+                                id="recentEmployeesTable"
+                                items="{recent>/items}">
+
+                                <columns>
+                                    <Column id="recentNameColumn">
+                                        <Text
+                                            id="recentNameHeader"
+                                            text="Name"/>
+                                    </Column>
+
+                                    <Column id="recentEmailColumn">
+                                        <Text
+                                            id="recentEmailHeader"
+                                            text="Email"/>
+                                    </Column>
+
+                                    <Column id="recentRoleColumn">
+                                        <Text
+                                            id="recentRoleHeader"
+                                            text="Role"/>
+                                    </Column>
+
+                                    <Column id="recentStatusColumn">
+                                        <Text
+                                            id="recentStatusHeader"
+                                            text="Status"/>
+                                    </Column>
+                                </columns>
+
+                                <items>
+                                    <ColumnListItem id="recentEmployeeRow">
+                                        <cells>
+                                            <Text
+                                                id="recentEmployeeName"
+                                                text="{recent>name}"/>
+
+                                            <Text
+                                                id="recentEmployeeEmail"
+                                                text="{recent>email}"/>
+
+                                            <Text
+                                                id="recentEmployeeRole"
+                                                text="{recent>role}"/>
+
+                                            <ObjectStatus
+                                                id="recentEmployeeStatus"
+                                                text="{recent>status}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+
+                        <!-- CRUD section -->
+                        <VBox
+                            id="crudSection"
+                            visible="{= ${ui>/section} !== 'Dashboard'}">
+
+                            <Title
+                                id="crudTitle"
+                                text="{ui>/pageTitle}"
+                                level="H1"/>
+
+                            <Text
+                                id="crudSubtitle"
+                                text="Manage records stored in the backend"
+                                class="mutedText"/>
+
+                            <Toolbar
+                                id="recordsToolbar"
+                                class="recordsToolbar">
+
+                                <SearchField
+                                    id="recordsSearch"
+                                    width="300px"
+                                    placeholder="Search records..."
+                                    liveChange=".onSearch"/>
+
+                                <ToolbarSpacer id="recordsToolbarSpacer"/>
+
+                                <Button
+                                    id="refreshRecordsButton"
+                                    text="Refresh"
+                                    icon="sap-icon://refresh"
+                                    press=".onRefresh"/>
+
+                                <Button
+                                    id="createRecordButton"
+                                    text="Add Record"
+                                    icon="sap-icon://add"
+                                    type="Emphasized"
+                                    press=".onCreate"/>
+                            </Toolbar>
+
+                            <Table
+                                id="recordsTable"
+                                growing="true"
+                                growingScrollToLoad="true"
+                                mode="None"
+                                noDataText="No records found">
+
+                                <columns/>
+                            </Table>
+                        </VBox>
+
+                    </VBox>
+                </VBox>
+            </HBox>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,14 @@
+<mvc:View
+    controllerName="psa.dash.dash.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+
+    <App id="app">
+        <pages>
+            <mvc:XMLView
+                id="mainView"
+                viewName="psa.dash.dash.view.View1"/>
+        </pages>
+    </App>
+
+</mvc:View>

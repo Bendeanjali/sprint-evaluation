@@ -1,0 +1,110 @@
+<mvc:View
+  controllerName="com.company.landing.controller.Landing"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:mvc="sap.ui.core.mvc">
+
+  <Page id="landingPage" showHeader="false" enableScrolling="true" class="landingPage">
+    <content>
+
+      <!-- Hero -->
+      <VBox
+    class="landingHero"
+    alignItems="Center"
+    justifyContent="Center">
+
+    <core:Icon
+        src="sap-icon://business-suite"
+        size="3rem"
+        color="#ffffff" />
+
+    <Title
+        text="Enterprise Professional Services Automation"
+        titleStyle="H1"
+        class="heroTitle" />
+
+    <Text
+        text="Unified Platform for Project Management, Timesheets and Billing"
+        class="heroSubtitle" />
+
+</VBox>
+
+      <!-- Role tiles (static) -->
+      <FlexBox class="tileContainer" wrap="Wrap" justifyContent="Center" alignItems="Stretch">
+
+        <!-- ADMIN -->
+        <GenericTile
+          id="tileAdmin"
+          class="roleTile sapUiSmallMargin"
+          header="Admin"
+          subheader="System &amp; user management"
+          frameType="TwoByOne"
+          press=".onAdminPress">
+          <TileContent footer="Administrators">
+            <VBox alignItems="Center" justifyContent="Center" height="100%">
+              <core:Icon src="sap-icon://user-settings" size="2.5rem" color="#0A6ED1" />
+              <Text text="Manage users, roles and master data" textAlign="Center" class="sapUiTinyMarginTop" />
+            </VBox>
+          </TileContent>
+        </GenericTile>
+
+        <!-- MANAGER -->
+        <GenericTile
+          id="tileManager"
+          class="roleTile sapUiSmallMargin"
+          header="Manager"
+          subheader="Team &amp; approvals"
+          frameType="TwoByOne"
+          press=".onManagerPress">
+          <TileContent footer="Managers">
+            <VBox alignItems="Center" justifyContent="Center" height="100%">
+              <core:Icon src="sap-icon://manager" size="2.5rem" color="#107E3E" />
+              <Text text="Approve requests and track team reports" textAlign="Center" class="sapUiTinyMarginTop" />
+            </VBox>
+          </TileContent>
+        </GenericTile>
+
+        <!-- EMPLOYEE -->
+        <GenericTile
+          id="tileEmployee"
+          class="roleTile sapUiSmallMargin"
+          header="Employee"
+          subheader="My work &amp; requests"
+          frameType="TwoByOne"
+          press=".onEmployeePress">
+          <TileContent footer="Employees">
+            <VBox alignItems="Center" justifyContent="Center" height="100%">
+              <core:Icon src="sap-icon://employee" size="2.5rem" color="#E9730C" />
+              <Text text="View tasks and submit requests" textAlign="Center" class="sapUiTinyMarginTop" />
+            </VBox>
+          </TileContent>
+        </GenericTile>
+
+        <!-- BILLING -->
+        <GenericTile
+          id="tileBilling"
+          class="roleTile sapUiSmallMargin"
+          header="Billing"
+          subheader="Invoices &amp; payments"
+          frameType="TwoByOne"
+          press=".onBillingPress">
+          <TileContent footer="Billing team">
+            <VBox alignItems="Center" justifyContent="Center" height="100%">
+              <core:Icon src="sap-icon://money-bills" size="2.5rem" color="#BB0000" />
+              <Text text="Create invoices and track payments" textAlign="Center" class="sapUiTinyMarginTop" />
+            </VBox>
+          </TileContent>
+        </GenericTile>
+
+      </FlexBox>
+    </content>
+
+    <footer>
+      <OverflowToolbar>
+        <ToolbarSpacer />
+      
+        <ToolbarSpacer />
+      </OverflowToolbar>
+    </footer>
+  </Page>
+</mvc:View>

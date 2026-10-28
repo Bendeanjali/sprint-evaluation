@@ -1,0 +1,244 @@
+<mvc:View
+    controllerName="psa.dash.dash.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    displayBlock="true">
+
+    <Page id="dashboardPage">
+
+        <!-- HEADER -->
+        <Bar id="headerBar">
+
+    
+    <contentRight>
+
+        <Button
+        id="timesheetBtn"
+        text="Timesheet Approvals"
+        type="Emphasized"
+        press="onTimesheetPress"/>
+
+
+        <Button
+            id="notificationBtn"
+            icon="sap-icon://bell"
+            type="Transparent"
+            press="onNotificationPress"/>
+
+    </contentRight>
+
+
+</Bar>
+
+        <content>
+
+            <VBox
+                id="dashboardVBox"
+                width="100%">
+
+               <VBox id="m1"
+    class="managerHero">
+
+    <Title id="tx1"
+        text="Project Manager Dashboard"
+        class="managerHeroTitle" />
+
+    <Text id="tx2"
+        text="Monitor projects, budgets, approvals and delivery progress"
+        class="managerHeroSubtitle" />
+
+</VBox>
+
+                <!-- KPI CARDS -->
+
+                <HBox
+                    id="kpiContainer"
+                    justifyContent="Center"
+                    alignItems="Center"
+                    width="100%"
+                    class="sapUiMediumMargin">
+
+                    <GenericTile
+                        id="activeProjectsTile"
+                        class="kpiTile activeProjectsTile sapUiSmallMarginEnd"
+                        header="Active Projects">
+
+                        <tileContent>
+                            <TileContent id="contents">
+                                <content>
+                                    <NumericContent id="dash"
+                                        value="{dashboard>/activeProjects}" />
+                                </content>
+                            </TileContent>
+                        </tileContent>
+
+                    </GenericTile>
+
+                    <GenericTile
+                        id="atRiskTile"
+                        header="At-Risk Budgets"
+                        class="kpiTile riskTile sapUiSmallMarginEnd">
+
+                        <tileContent>
+                            <TileContent id="dashs">
+                                <content>
+                                    <NumericContent id="risk"
+                                        value="{dashboard>/atRiskBudgets}" />
+                                </content>
+                            </TileContent>
+                        </tileContent>
+
+                    </GenericTile>
+
+                    <GenericTile
+                        id="pendingTile"
+                        class="kpiTile pendingTile sapUiSmallMarginEnd"
+                        header="Pending Approvals">
+
+                        <tileContent>
+                            <TileContent id="con">
+                                <content>
+                                    <NumericContent id="pend"
+                                        value="{dashboard>/pendingApprovals}" />
+                                </content>
+                            </TileContent>
+                        </tileContent>
+
+                    </GenericTile>
+
+                    <GenericTile
+                        id="hoursTile"
+                        class="kpiTile hoursTile sapUiSmallMarginEnd"
+                        header="Unbilled Hours">
+
+                        <tileContent>
+                            <TileContent id="tile">
+                                <content>
+                                    <NumericContent id="unbill"
+                                        value="{dashboard>/unbilledHours}" />
+                                </content>
+                            </TileContent>
+                        </tileContent>
+
+                    </GenericTile>
+
+                </HBox>
+
+                <!-- PROJECT HOME -->
+
+                <Panel
+                    id="projectPanel"
+                    expandable="false"
+                    headerText="Projects">
+
+                    <headerToolbar>
+                        
+
+                        <Toolbar id="tool1">
+
+    <Title id="title1" text="Projects" />
+
+    <ToolbarSpacer id="space"/>
+
+    <SearchField
+        id="projectSearch"
+        width="300px"
+        placeholder="Search Projects"
+        liveChange="onSearchProjects"
+        search="onSearchProjects" />
+
+    <Button
+        id="button"
+        text="Create Project"
+        type="Emphasized"
+        press="onCreateProject" />
+
+       
+
+</Toolbar>
+
+
+                    </headerToolbar>
+
+                    <Table
+                        id="projectsTable"
+                        items="{/ProjectOverview}">
+
+                        <columns>
+
+                            <Column id="col1">
+                                <Text id="a" text="Code"/>
+                            </Column>
+
+                            <Column id="col2">
+                                <Text  id="b" text="Project"/>
+                            </Column>
+
+                            <Column id="col3">
+                                <Text id="c" text="Billing"/>
+                            </Column>
+
+                            <Column id="col4">
+                                <Text id="d" text="Hours"/>
+                            </Column>
+                            <Column id="col6">
+                                <Text id="f" text="ClientName"/>
+                            </Column>
+
+                            <Column id="col5">
+                                <Text id="e" text="Status"/>
+                            </Column>
+
+                        </columns>
+
+                        <items>
+
+                            <ColumnListItem id="navi"
+                                type="Navigation"
+                                press=".onProjectPress">
+
+                                <cells>
+
+                                    <Text text="{projectCode}" id="procode" />
+
+                                    <Text text="{projectName}" id="proname"/>
+
+                                    <Text text="{billingType}"  id="type"/>
+
+                                    <Text id="text"
+                                        text="{consumedHours}" />
+
+                                     <Text id="text1"
+                                        text="{clientName}" />
+
+                                    <ObjectStatus id="status"
+                                     text="{projectStatus}" 
+                                     state="{
+                                         path: 'projectStatus',
+                                        formatter: '.formatProjectStatusState'
+                                                                }"/>
+
+                                </cells>
+
+                            </ColumnListItem>
+
+                        </items>
+
+                    </Table>
+
+                </Panel>
+
+                   
+
+                    
+                    
+
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

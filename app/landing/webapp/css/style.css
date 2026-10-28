@@ -1,0 +1,32 @@
+.landingHero {
+  min-height: 14rem;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #0a6ed1 0%, #354a5f 100%);
+  color: #ffffff;
+  text-align: center;
+}
+
+.landingHero .heroTitle,
+.landingHero .heroTitle .sapMTitle {
+  color: #ffffff;
+  margin-top: 0.75rem;
+}
+
+.landingHero .heroSubtitle {
+  color: #e6eef7;
+  margin-top: 0.25rem;
+}
+
+.tileContainer {
+  padding: 2rem 1rem;
+}
+
+.roleTile {
+  min-width: 20rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.roleTile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
